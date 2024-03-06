@@ -1,9 +1,6 @@
-// Importe o React e o styled-components conforme necessário
-
 import styled from "styled-components";
 import { colors } from "../../styles";
 
-// Estilos para o componente ModalOverlay
 export const ModalOverlay = styled.div`
 	display: flex;
 	position: fixed;
@@ -16,7 +13,6 @@ export const ModalOverlay = styled.div`
 	height: 100%;
 `;
 
-// Estilos para o componente ModalContent
 export const ModalContent = styled.div`
 	background-color: #fff;
 	padding: 0px 20px 20px;
@@ -27,7 +23,6 @@ export const ModalContent = styled.div`
 	overflow-y: auto;
 `;
 
-// Estilos para o botão de fechar o modal
 export const ModalClose = styled.div`
 	position: absolute;
 	top: 20px;
@@ -77,7 +72,6 @@ export const TableHeaderCell = styled.th`
 	border-bottom: 2px solid ${colors.preto};
 `;
 
-// Estilos para as células da tabela (não cabeçalho)
 export const TableCell = styled.td`
 	padding: 12px;
 	text-align: left;
