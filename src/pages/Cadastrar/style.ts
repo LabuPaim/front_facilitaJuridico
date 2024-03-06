@@ -3,10 +3,19 @@ import { colors } from "../../styles";
 
 export const Page = styled.div`
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: start;
     align-items: center;
     width: 100%;
     height: 100%;
+
+    .containerCadastro{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 export const ContainerForm = styled.form`

@@ -1,92 +1,122 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CustomButton, CustomInput } from "../../components/common";
 import * as S from "./style";
 import { colors } from "../../styles";
 import { api } from "../../services/api";
 import { MensagemContext } from "../../context";
-import { TipoTypes } from "../../types";
+import { InputTypes, MaskTypes, TipoTypes } from "../../types";
 import { Mensagem } from "../../components/common";
+import { mascara } from "../../utils";
 
 export default function Cadastrar() {
     const { setMensagem } = useContext(MensagemContext);
 
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [coordenadaX, setCoordenadaX] = useState(0);
+    const [coordenadaY, setCoordenadaY] = useState(0);
+
     async function registrar(e: any) {
         e.preventDefault();
 
-        const name = e.currentTarget.nNome.value;
-        const email = e.currentTarget.nEmail.value;
-        const telefone = e.currentTarget.ntelefone.value;
-        const coordenadax = e.currentTarget.nCoordenadaX.value;
-        const coordenaday = e.currentTarget.nCoordenadaY.value;
+        try {
+            const response = await api.POST("", {
+                name: nome,
+                email: email,
+                telefone: telefone,
+                coordenadax: coordenadaX,
+                coordenaday: coordenadaY,
+            });
 
-        api.POST("", { name, email, telefone, coordenadax, coordenaday })
-            .then((data) => {
-                if (data) {
-                    setMensagem &&
-                        setMensagem({
-                            isMensagem: true,
-                            tipo: TipoTypes.SUCESS,
-                            mensagem: "Cliente Cadastrado",
-                            time: 4000,
-                        });
-                } else {
-                    setMensagem &&
-                        setMensagem({
-                            isMensagem: true,
-                            tipo: TipoTypes.BAD,
-                            mensagem: "Cliente não pode ser cadastrado",
-                            time: 4000,
-                        });
-                }
-            })
-            .catch((error) => {
-                if (setMensagem) {
+            if (response) {
+                setMensagem &&
                     setMensagem({
                         isMensagem: true,
-                        tipo: TipoTypes.BAD,
-                        mensagem: "Cliente não pode ser cadastrado",
+                        tipo: TipoTypes.SUCESS,
+                        mensagem: "Cliente Cadastrado",
                         time: 4000,
                     });
-                }
-            });
+            }
+        } catch (error) {
+            console.error("Erro ao cadastrar cliente:", error);
+            setMensagem &&
+                setMensagem({
+                    isMensagem: true,
+                    tipo: TipoTypes.BAD,
+                    mensagem: "Cliente não pode ser cadastrado",
+                    time: 4000,
+                });
+        }
     }
     return (
         <S.Page onSubmit={registrar}>
             <Mensagem />
-            <S.ContainerForm>
-                <S.ContainerInput>
-                    <h3>Contato:</h3>
-                    <CustomInput label="" name="nNome" type="text" placeholder="Nome" required />
-                    <CustomInput label="" name="nEmail" type="email" placeholder="Email" required />
-                    <CustomInput label="" name="nTelefone" type="text" placeholder="Telefone" required />
-                    <div>
-                        <h3>Localização:</h3>
-                        <div className="container__localizacao">
-                            <CustomInput
-                                label=""
-                                name="nCoordenadaX"
-                                type="number"
-                                placeholder="CoordenadaX"
-                                required
-                            />
-                            <CustomInput
-                                label=""
-                                name="nCoordenadaY"
-                                type="number"
-                                placeholder="CoordenadaY"
-                                required
-                            />
+            <div className="containerCadastro">
+                <S.ContainerForm>
+                    <S.ContainerInput>
+                        <h3>Contato:</h3>
+                        <CustomInput
+                            label=""
+                            name="nNome"
+                            value={nome}
+                            type={InputTypes.text}
+                            placeholder="Nome"
+                            required
+                            onChange={(e) => setNome(e)}
+                        />
+                        <CustomInput
+                            label=""
+                            name="nEmail"
+                            value={email}
+                            type={InputTypes.email}
+                            placeholder="Email"
+                            required
+                            onChange={(e) => setEmail(e)}
+                        />
+                        <CustomInput
+                            label=""
+                            value={telefone}
+                            name="nTelefone"
+                            maxLength={15}
+                            type={InputTypes.text}
+                            placeholder="Telefone"
+                            required
+                            onChange={(e) => setTelefone(mascara(MaskTypes.CELULAR, e))}
+                        />
+                        <div>
+                            <h3>Localização:</h3>
+                            <div className="container__localizacao">
+                                <CustomInput
+                                    label=""
+                                    name="nCoordenadaX"
+                                    value={coordenadaX}
+                                    onChange={(e) => setCoordenadaX(parseInt(e))}
+                                    type={InputTypes.number}
+                                    placeholder="CoordenadaX"
+                                    required
+                                />
+                                <CustomInput
+                                    label=""
+                                    name="nCoordenadaY"
+                                    value={coordenadaY}
+                                    onChange={(e) => setCoordenadaY(parseInt(e))}
+                                    type={InputTypes.number}
+                                    placeholder="CoordenadaY"
+                                    required
+                                />
+                            </div>
                         </div>
-                    </div>
-                </S.ContainerInput>
-                <CustomButton
-                    type="submit"
-                    label="Registrar"
-                    bgHoverColor={colors.laranja2}
-                    txHoverColor={colors.azul1}
-                />
-            </S.ContainerForm>
+                    </S.ContainerInput>
+                    <CustomButton
+                        type="submit"
+                        label="Registrar"
+                        bgHoverColor={colors.laranja2}
+                        txHoverColor={colors.azul1}
+                    />
+                </S.ContainerForm>
+            </div>
         </S.Page>
     );
 }

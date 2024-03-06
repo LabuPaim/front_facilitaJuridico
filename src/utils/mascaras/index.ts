@@ -1,19 +1,24 @@
-export function mascara(tipo: string, dados: string) {
-	if (dados) {
-		if (tipo === "cnpj") {
-			return cnpj_mask(dados);
-		}
-		if (tipo === "cpf") {
-			return cpf_mask(dados);
-		}
-		if (tipo === "cep") {
-			return cep_mask(dados);
-		}
-		if (tipo === "celular") {
-			return celular_mask(dados);
-		}
-	}
+import { MaskTypes } from "../../types";
+
+export function mascara(tipo: MaskTypes, dados: string): string {
+    if (!dados) return '';
+
+    if (tipo === MaskTypes.CNPJ) {
+        return cnpj_mask(dados);
+    }
+    if (tipo === MaskTypes.CPF) {
+        return cpf_mask(dados);
+    }
+    if (tipo === MaskTypes.CEP) {
+        return cep_mask(dados);
+    }
+    if (tipo === MaskTypes.CELULAR) {
+        return celular_mask(dados);
+    }
+
+    return dados;
 }
+
 
 const cpf_mask = (v: string) => {
 	v = v.replace(/\D/g, "");
