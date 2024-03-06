@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Client } from "../../types";
 
 axios.defaults.baseURL = "http://localhost:3001/client";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -14,7 +15,7 @@ export const api = {
         }
     },
 
-    POST: async (link: string, dados: any) => {
+    POST: async (link: string, dados: Client) => {
         try {
             const response = await axios.post(link, dados);
             return response;
