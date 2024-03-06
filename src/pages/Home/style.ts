@@ -4,6 +4,15 @@ import { colors } from "../../styles";
 export const Page = styled.div`
     display: grid;
     grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+    .containerButton{
+        place-self: center;
+        padding: 20px;
+        width: 300px;
+    }
 `;
 export const ContainerCards = styled.div`
     display: grid;

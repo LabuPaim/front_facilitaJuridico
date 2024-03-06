@@ -5,7 +5,6 @@ export const Menu = () => {
         <S.Page>
             <a href="/">Listar Cliente</a>
             <a href="/cadastrar">Cadastrar Cliente</a>
-            <a href="/rota">Melhor Rota</a>
         </S.Page>
     );
 };
