@@ -2,6 +2,10 @@
 
 Este é um sistema para gerenciar clientes e outras funcionalidades do Facilita Jurídico.
 
+## Vídeo Explicativo
+https://youtu.be/6I-MNrxLaAA
+Obs.: O tamanho do vídeo não foi possível fazer upload no github
+
 ## Tecnologias Utilizadas
 
 * React.js v18.2.0
