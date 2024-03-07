@@ -3,6 +3,7 @@ export enum MaskTypes {
     CPF = "CPF",
     CEP = "CEP",
     CELULAR = "CELULAR",
+    INTERGER = "INTERGER",
 }
 
 export enum InputTypes {

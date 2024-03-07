@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "../pages";
-import Cadastrar from "../pages/Cadastrar";
+import { Cadastrar, Home } from "../pages";
 
 export const AppRoutes = () => {
     return (
