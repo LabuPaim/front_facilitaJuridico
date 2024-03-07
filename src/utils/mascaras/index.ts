@@ -55,13 +55,8 @@ const celular_mask = (v: string) => {
 };
 
 const integer_mask = (v: string) => {
-	// Remove todos os caracteres que não são dígitos ou sinal de menos
 	v = v.replace(/[^\d-]/g, "");
-
-	// Remove zeros à esquerda, exceto se for o único caractere
 	v = v.replace(/^(-?)0+(?=\d)/, "$1");
-
-	// Remove sinais de menos duplicados
 	v = v.replace(/--/g, "-");
 
 	return v;
